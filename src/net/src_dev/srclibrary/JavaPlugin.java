@@ -13,6 +13,14 @@ public abstract class JavaPlugin extends org.bukkit.plugin.java.JavaPlugin{
 			getLogger().info(i);
 		}
 	}
+	public void logWarning(String warning){
+		getLogger().warning(warning);
+	}
+	public void logWarning(String[] warning){
+		for(String w:warning){
+			getLogger().warning(w);
+		}
+	}
 	public void messageConsole(String message, boolean translateAlternateColorCodes){
 		CommandSender console = getServer().getConsoleSender();
 		if(translateAlternateColorCodes){
