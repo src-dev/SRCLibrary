@@ -2,8 +2,8 @@ package net.src_dev.srclibrary;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
-import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.bukkit.ChatColor;
@@ -39,7 +39,7 @@ public class Message {
 		text = ChatColor.translateAlternateColorCodes(alternateColorCodeChar, text);
 		return this;
 	}
-	public Message replace(HashMap<String, String> replacementMap){
+	public Message replace(Map<String, String> replacementMap){
 		for(Entry<String, String> entry:replacementMap.entrySet()){
 			text = text.replace(entry.getKey(), entry.getValue());
 		}
