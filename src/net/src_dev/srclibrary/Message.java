@@ -12,6 +12,9 @@ import org.bukkit.entity.Player;
 
 public class Message {
 	private String text;
+	public Message(){
+		text = "";
+	}
 	public Message(String text){
 		this.text = text;
 	}
