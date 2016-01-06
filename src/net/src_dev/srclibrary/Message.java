@@ -18,6 +18,9 @@ public class Message {
 	public Message(String text){
 		setText(text);
 	}
+	public Message(Message message){
+		setText(message.toString());
+	}
 		
 	
 	
