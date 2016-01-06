@@ -13,37 +13,47 @@ import org.bukkit.entity.Player;
 public class Message {
 	private String text;
 	public Message(){
-		text = "";
+		setText("");
 	}
 	public Message(String text){
-		this.text = text;
+		setText(text);
+	}
+	
+	
+	
+	public Message instance(){
+		return this;
 	}
 		
 	
 	
-	public void setText(String text){
+	public Message setText(String text){
 		this.text = text;
+		return this;
 	}
 	public String getText(){
 		return text;
 	}
-	public void color(){
+	public Message color(){
 		text = ChatColor.translateAlternateColorCodes('&', text);
+		return this;
 	}
-	public void color(char alternateColorCodeChar){
+	public Message color(char alternateColorCodeChar){
 		text = ChatColor.translateAlternateColorCodes(alternateColorCodeChar, text);
+		return this;
 	}
-	public void replace(HashMap<String, String> replacementMap){
+	public Message replace(HashMap<String, String> replacementMap){
 		for(Entry<String, String> entry:replacementMap.entrySet()){
 			text = text.replace(entry.getKey(), entry.getValue());
 		}
+		return this;
 	}
 	public void send(CommandSender sender){
 		sender.sendMessage(text);
 	}
 	public void send(Player player){
 		player.sendMessage(text);
-	}	
+	}
 	
 		
 	
@@ -65,8 +75,9 @@ public class Message {
 	public int compareToIgnoreCase(String str){
 		return text.compareToIgnoreCase(str);
 	}
-	public void concat(String str){
+	public Message concat(String str){
 		text = text.concat(str);
+		return this;
 	}
 	public boolean contains(CharSequence s){
 		return text.contains(s);
@@ -146,17 +157,21 @@ public class Message {
 	public boolean regionMatches(int toffset, String other, int ooffset, int len){
 		return text.regionMatches(toffset, other, ooffset, len);
 	}
-	public void replace(char oldChar, char newChar){
+	public Message replace(char oldChar, char newChar){
 		text = text.replace(oldChar, newChar);
+		return this;
 	}
-	public void replace(CharSequence target, CharSequence replacement){
+	public Message replace(CharSequence target, CharSequence replacement){
 		text = text.replace(target, replacement);
+		return this;
 	}
-	public void replaceAll(String regex, String replacement){
+	public Message replaceAll(String regex, String replacement){
 		text = text.replaceAll(regex, replacement);
+		return this;
 	}
-	public void replaceFirst(String regex, String replacement){
+	public Message replaceFirst(String regex, String replacement){
 		text = text.replaceFirst(regex, replacement);
+		return this;
 	}	
 	public String[] split(String regex){
 		return text.split(regex);
@@ -182,22 +197,27 @@ public class Message {
 	public char[] toCharArray(){
 		return text.toCharArray();
 	}	
-	public void toLowerCase(){
+	public Message toLowerCase(){
 		text = text.toLowerCase();
+		return this;
 	}
-	public void toLowerCase(Locale locale){
+	public Message toLowerCase(Locale locale){
 		text = text.toLowerCase(locale);
+		return this;
 	}
 	public String toString(){
 		return text;
 	}
-	public void toUpperCase(){
+	public Message toUpperCase(){
 		text = text.toUpperCase();
+		return this;
 	}
-	public void toUpperCase(Locale locale){
+	public Message toUpperCase(Locale locale){
 		text = text.toUpperCase(locale);
+		return this;
 	}
-	public void trim(){
+	public Message trim(){
 		text = text.trim();
+		return this;
 	}
 }
