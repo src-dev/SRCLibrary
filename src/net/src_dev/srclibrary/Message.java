@@ -18,12 +18,6 @@ public class Message {
 	public Message(String text){
 		setText(text);
 	}
-	
-	
-	
-	public Message instance(){
-		return this;
-	}
 		
 	
 	
