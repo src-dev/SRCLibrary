@@ -145,6 +145,9 @@ public class MultiMessage {
 	public List<String> toStringList(){
 		return text;
 	}
+	public String[] toStringArray(){
+		return (String[]) text.toArray();
+	}
 	public MultiMessage trim(){
 		for(String t:text){
 			text.set(text.indexOf(t), t.trim());
