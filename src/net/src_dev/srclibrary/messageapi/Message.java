@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package net.src_dev.messageapi;
+package net.src_dev.srclibrary.messageapi;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -115,6 +115,7 @@ public class Message {
 	 * @return Returns the Message instance (for in-line use).
 	 */
 	public Message sendToConsole() {
+		if(plugin == null) throw new NullPointerException("The plugin variable must be set using Message#setPlugin.");
 		plugin.getServer().getConsoleSender().sendMessage(text);
 		return this;
 	}
@@ -124,16 +125,28 @@ public class Message {
 	 * @return Returns the Message instance (for in-line use).
 	 */
 	public Message logAsInfo() {
-		plugin.getLogger().info(text);
+		if(plugin == null) throw new NullPointerException("The plugin variable must be set using Message#setPlugin.");
+		plugin.getServer().getLogger().info(text);
 		return this;
 	}
 	
 	/**
-	 * Logs the message as warning to the console. Requires plugin to be using {@link Message#setPlugin(JavaPlugin)}.
+	 * Logs the message as warning to the console. Requires plugin to be initialized using {@link Message#setPlugin(JavaPlugin)}.
 	 * @return Returns the Message instance (for in-line use).
 	 */
 	public Message logAsWarning() {
-		plugin.getLogger().warning(text);
+		if(plugin == null) throw new NullPointerException("The plugin variable must be set using Message#setPlugin.");
+		plugin.getServer().getLogger().warning(text);
+		return this;
+	}
+	
+	/**
+	 * Logs the message as severe to the console. Requires plugin to be intialized using {@link Message#setPlugin(JavaPlugin)}.
+	 * @return Returns the Message instance (for in-line use).
+	 */
+	public Message logAsSevere() {
+		if(plugin == null) throw new NullPointerException("The plugin variable must be set using Message#setPlugin.");
+		plugin.getServer().getLogger().severe(text);
 		return this;
 	}
 	

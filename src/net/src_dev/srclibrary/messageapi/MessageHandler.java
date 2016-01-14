@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package net.src_dev.messageapi;
+package net.src_dev.srclibrary.messageapi;
 
 import java.util.Arrays;
 import java.util.List;

@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package net.src_dev.messageapi;
+package net.src_dev.srclibrary.messageapi;
 
 import java.util.Arrays;
 import java.util.List;
@@ -148,6 +148,7 @@ public class MultiMessage {
 	 * @return Returns the MultiMessage instance (for in-line use).
 	 */
 	public MultiMessage sendToConsole() {
+		if(plugin == null) throw new NullPointerException("The plugin variable must be set using MultiMessage#setPlugin.");
 		CommandSender console = plugin.getServer().getConsoleSender();
 		for(String t : text) {
 			console.sendMessage(t);
@@ -160,8 +161,9 @@ public class MultiMessage {
 	 * @return Returns the MultiMessage instance (for in-line use).
 	 */
 	public MultiMessage logAsInfo() {
+		if(plugin == null) throw new NullPointerException("The plugin variable must be set using MultiMessage#setPlugin.");
 		for(String t : text) {
-			plugin.getLogger().info(t);
+			plugin.getServer().getLogger().info(t);
 		}
 		return this;
 	}
@@ -171,8 +173,21 @@ public class MultiMessage {
 	 * @return Returns the MultiMessage instance (for in-line use).
 	 */
 	public MultiMessage logAsWarning() {
+		if(plugin == null) throw new NullPointerException("The plugin variable must be set using MultiMessage#setPlugin.");
 		for(String t : text) {
-			plugin.getLogger().warning(t);
+			plugin.getServer().getLogger().warning(t);
+		}
+		return this;
+	}
+	
+	/**
+	 * Logs the multimessage as severe to the console. Requires plugin to be initialized using {@link MultiMessage#setPlugin(JavaPlugin)}.
+	 * @return Returns the MultiMessage instance (for in-line use).
+	 */
+	public MultiMessage logAsSevere() {
+		if(plugin == null) throw new NullPointerException("The plugin variable must be set using MultiMessage#setPlugin.");
+		for(String t : text){
+			plugin.getServer().getLogger().severe(t);
 		}
 		return this;
 	}
