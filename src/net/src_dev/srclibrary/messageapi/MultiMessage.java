@@ -13,8 +13,6 @@ import java.util.Map.Entry;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-
 
 /**
  * The MultiMessage object class.
@@ -23,7 +21,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class MultiMessage {
 	
 	private List<String> text;
-	private JavaPlugin plugin;
 	
 	/**
 	 * Creates a new MultiMessage with a starting list.
@@ -35,9 +32,9 @@ public class MultiMessage {
 	
 	/**
 	 * Creates a new MultiMessage with an array.
-	 * @param text Array which will be converted to a List. Used to initialize and fill the text variable.
+	 * @param text Starting array. Converted to List to fill the text variable.
 	 */
-	public MultiMessage(String[] text) {
+	public MultiMessage(String[] text){
 		setText(text);
 	}
 	
@@ -45,19 +42,8 @@ public class MultiMessage {
 	 * Creates a new MultiMessage from an existing MultiMessage. Essentially creates a copy.
 	 * @param multiMessage The old multimessage which is to be copied.
 	 */
-	public MultiMessage(MultiMessage multiMessage) {
-		setPlugin(multiMessage.plugin);
-		setText(multiMessage.text);
-	}
-	
-	/**
-	 * Sets the plugin instance.
-	 * @param plugin The JavaPlugin which is used to set the MultiMessage's plugin variable.
-	 * @return Returns the MultiMessage instance (for in-line use).
-	 */
-	public MultiMessage setPlugin(JavaPlugin plugin) {
-		this.plugin = plugin;
-		return this;
+	private MultiMessage(MultiMessage oldMessage) {
+		setText(oldMessage.text);
 	}
 	
 	/**
@@ -139,55 +125,6 @@ public class MultiMessage {
 	public MultiMessage send(Player player) {
 		for(String t : text) {
 			player.sendMessage(t);
-		}
-		return this;
-	}
-	
-	/**
-	 * Sends the multimessage to the console. Requires plugin to be initialized using {@link MultiMessage#setPlugin(JavaPlugin)}.
-	 * @return Returns the MultiMessage instance (for in-line use).
-	 */
-	public MultiMessage sendToConsole() {
-		if(plugin == null) throw new NullPointerException("The plugin variable must be set using MultiMessage#setPlugin.");
-		CommandSender console = plugin.getServer().getConsoleSender();
-		for(String t : text) {
-			console.sendMessage(t);
-		}
-		return this;
-	}
-	
-	/**
-	 * Logs the multimessage as info to the console. Requires plugin to be initialized using {@link MultiMessage#setPlugin(JavaPlugin)}.
-	 * @return Returns the MultiMessage instance (for in-line use).
-	 */
-	public MultiMessage logAsInfo() {
-		if(plugin == null) throw new NullPointerException("The plugin variable must be set using MultiMessage#setPlugin.");
-		for(String t : text) {
-			plugin.getServer().getLogger().info(t);
-		}
-		return this;
-	}
-	
-	/**
-	 * Logs the multimessage as warning to the console. Requires plugin to be initialized using {@link MultiMessage#setPlugin(JavaPlugin)}.
-	 * @return Returns the MultiMessage instance (for in-line use).
-	 */
-	public MultiMessage logAsWarning() {
-		if(plugin == null) throw new NullPointerException("The plugin variable must be set using MultiMessage#setPlugin.");
-		for(String t : text) {
-			plugin.getServer().getLogger().warning(t);
-		}
-		return this;
-	}
-	
-	/**
-	 * Logs the multimessage as severe to the console. Requires plugin to be initialized using {@link MultiMessage#setPlugin(JavaPlugin)}.
-	 * @return Returns the MultiMessage instance (for in-line use).
-	 */
-	public MultiMessage logAsSevere() {
-		if(plugin == null) throw new NullPointerException("The plugin variable must be set using MultiMessage#setPlugin.");
-		for(String t : text){
-			plugin.getServer().getLogger().severe(t);
 		}
 		return this;
 	}

@@ -11,7 +11,6 @@ import java.util.Map.Entry;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * The Message object class.
@@ -20,7 +19,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Message {
 	
 	private String text;
-	private JavaPlugin plugin;
 	
 	/**
 	 * Creates a new Message with a starting text.
@@ -34,19 +32,8 @@ public class Message {
 	 * Creates a new Message from an existing Message. Essentially creates a copy.
 	 * @param message The old message which is to be copied.
 	 */
-	public Message(Message message) {
-		setPlugin(message.plugin);
-		setText(message.text);
-	}
-	
-	/**
-	 * Sets the plugin instance.
-	 * @param plugin The JavaPlugin which is used to set the Message's plugin variable.
-	 * @return Returns the Message instance (for in-line use).
-	 */
-	public Message setPlugin(JavaPlugin plugin) {
-		this.plugin = plugin;
-		return this;
+	public Message(Message oldMessage) {
+		setText(oldMessage.text);
 	}
 	
 	/**
@@ -107,46 +94,6 @@ public class Message {
 	 */
 	public Message send(Player player) {
 		player.sendMessage(text);
-		return this;
-	}
-	
-	/**
-	 * Sends the message to the console. Requires plugin to be initialized using {@link Message#setPlugin(JavaPlugin)}.
-	 * @return Returns the Message instance (for in-line use).
-	 */
-	public Message sendToConsole() {
-		if(plugin == null) throw new NullPointerException("The plugin variable must be set using Message#setPlugin.");
-		plugin.getServer().getConsoleSender().sendMessage(text);
-		return this;
-	}
-	
-	/**
-	 * Logs the message as info to the console. Requires plugin to be initialized using {@link Message#setPlugin(JavaPlugin)}.
-	 * @return Returns the Message instance (for in-line use).
-	 */
-	public Message logAsInfo() {
-		if(plugin == null) throw new NullPointerException("The plugin variable must be set using Message#setPlugin.");
-		plugin.getServer().getLogger().info(text);
-		return this;
-	}
-	
-	/**
-	 * Logs the message as warning to the console. Requires plugin to be initialized using {@link Message#setPlugin(JavaPlugin)}.
-	 * @return Returns the Message instance (for in-line use).
-	 */
-	public Message logAsWarning() {
-		if(plugin == null) throw new NullPointerException("The plugin variable must be set using Message#setPlugin.");
-		plugin.getServer().getLogger().warning(text);
-		return this;
-	}
-	
-	/**
-	 * Logs the message as severe to the console. Requires plugin to be intialized using {@link Message#setPlugin(JavaPlugin)}.
-	 * @return Returns the Message instance (for in-line use).
-	 */
-	public Message logAsSevere() {
-		if(plugin == null) throw new NullPointerException("The plugin variable must be set using Message#setPlugin.");
-		plugin.getServer().getLogger().severe(text);
 		return this;
 	}
 	

@@ -5,9 +5,6 @@
 
 package net.src_dev.srclibrary.messageapi;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,11 +14,12 @@ import org.bukkit.plugin.java.JavaPlugin;
  * A subclass of this is used to create and control Messages and MultiMessages.
  */
 public abstract class MessageHandler {
-	
-	private Options options = new Options();
 
 	private JavaPlugin plugin;
 	private FileConfiguration config;
+	
+	
+	private Options options = new Options();
 	
 	/**
 	 * Only constructor. This is used to set the plugin and config variables.
@@ -36,7 +34,79 @@ public abstract class MessageHandler {
 	/**
 	 * Loads all of the messages. Should only be called by child classes.
 	 */
-	protected abstract void load();
+	public abstract void load();
+	
+	/**
+	 * Sends a Message to the console.
+	 * @param message The Message to send.
+	 */
+	public void sendToConsole(Message message){
+		plugin.getServer().getConsoleSender().sendMessage(message.toString());
+	}
+	
+	/**
+	 * Sends a MultiMessage to the console.
+	 * @param message The MultiMessage to send.
+	 */
+	public void sendToConsole(MultiMessage message){
+		for(String s : message.toStringList()){
+			plugin.getServer().getConsoleSender().sendMessage(s);
+		}
+	}
+	
+	/**
+	 * Logs a Message as info.
+	 * @param message The Message to log.
+	 */
+	public void logAsInfo(Message message){
+		plugin.getServer().getLogger().info(message.toString());
+	}
+	
+	/**
+	 * Logs a MultiMessage as info.
+	 * @param message The MultiMessage to log.
+	 */
+	public void logAsInfo(MultiMessage message){
+		for(String s : message.toStringList()){
+			plugin.getServer().getLogger().info(s);
+		}
+	}
+	
+	/**
+	 * Logs a Message as warning.
+	 * @param message The Message to log.
+	 */
+	public void logAsWarning(Message message){
+		plugin.getServer().getLogger().warning(message.toString());
+	}
+	
+	/**
+	 * Logs a MultiMessage as warning.
+	 * @param message The MultiMessage to log.
+	 */
+	public void logAsWarning(MultiMessage message){
+		for(String s : message.toStringList()){
+			plugin.getServer().getLogger().warning(s);
+		}
+	}
+	
+	/**
+	 * Logs a Message as severe.
+	 * @param message The Message to log.
+	 */
+	public void logAsSevere(Message message){
+		plugin.getServer().getLogger().severe(message.toString());
+	}
+	
+	/**
+	 * Logs a MultiMessage as severe.
+	 * @param message The MultiMessage to log.
+	 */
+	public void logAsSevere(MultiMessage message){
+		for(String s : message.toStringList()){
+			plugin.getServer().getLogger().severe(s);
+		}
+	}
 	
 	/**
 	 * Gets the Options instance for this handler instance.
@@ -47,21 +117,21 @@ public abstract class MessageHandler {
 	}
 	
 	/**
-	 * Retrieves a message from the config. This method is useful because it automatically passes the plugin instance to the message.
+	 * Retrieves a message from the config with assigned handler.
 	 * @param key This is the yml key.
 	 * @return Returns a new Message instance.
 	 */
 	public Message getConfigMessage(String key) {
-		return new Message(config.getString(options.getKeyPrefix() + key)).setPlugin(plugin);
+		return new Message(config.getString(options.getKeyPrefix() + key));
 	}
 	
 	/**
-	 * Retrieves a multimessage from the config. This method is useful because it automatically passes the plugin instance to the message.
+	 * Retrieves a multimessage from the config with assigned handler.
 	 * @param key This is the yml key.
 	 * @return Returns a new MultiMessage instance.
 	 */
 	public MultiMessage getConfigMultiMessage(String key) {
-		return new MultiMessage(config.getStringList(options.getKeyPrefix() + key)).setPlugin(plugin);
+		return new MultiMessage(config.getStringList(options.getKeyPrefix() + key));
 	}
 	
 	/**
@@ -71,8 +141,8 @@ public abstract class MessageHandler {
 	 * @return Returns a new Message.
 	 */
 	public Message getConfigMessage(String key, boolean useKeyPrefix) {
-		if(useKeyPrefix) return new Message(config.getString(options.getKeyPrefix() + key)).setPlugin(plugin);
-		else return new Message(config.getString(key)).setPlugin(plugin);
+		if(useKeyPrefix) return new Message(config.getString(options.getKeyPrefix() + key));
+		else return new Message(config.getString(key));
 	}
 	
 	/**
@@ -82,35 +152,8 @@ public abstract class MessageHandler {
 	 * @return Returns a new MultiMessage.
 	 */
 	public MultiMessage getConfigMultiMessage(String key, boolean useKeyPrefix) {
-		if(useKeyPrefix) return new MultiMessage(config.getStringList(options.getKeyPrefix() + key)).setPlugin(plugin);
-		else return new MultiMessage(config.getStringList(key)).setPlugin(plugin);
-	}
-	
-	/**
-	 * Creates a new Message. This method is useful because it automatically passes the plugin instance to the message.
-	 * @param text The text used to create the Message.
-	 * @return Returns a new Message.
-	 */
-	public Message createMessage(String text) {
-		return new Message(text).setPlugin(plugin);
-	}
-	
-	/**
-	 * Creates a new MultiMessage. This method is useful because it automatically passes the plugin instance to the message.
-	 * @param text The List used to create the MultiMessage.
-	 * @return Returns a new MultiMessage.
-	 */
-	public MultiMessage createMultiMessage(List<String> text) {
-		return new MultiMessage(text).setPlugin(plugin);
-	}
-	
-	/**
-	 * Creates a new MultiMessage. This method is useful because it automatically passes the plugin instance to the message.
-	 * @param text The array used to create the MultiMessage.
-	 * @return Returns a new MultiMessage.
-	 */
-	public MultiMessage createMultiMessage(String[] text) {
-		return new MultiMessage(Arrays.asList(text)).setPlugin(plugin);
+		if(useKeyPrefix) return new MultiMessage(config.getStringList(options.getKeyPrefix() + key));
+		else return new MultiMessage(config.getStringList(key));
 	}
 	
 	/**
