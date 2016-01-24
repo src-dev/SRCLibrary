@@ -1,4 +1,4 @@
-package net.src_dev.srclibrary.functions;
+package net.src_dev.srclibrary;
 
 import org.bukkit.Material;
 import org.bukkit.TreeType;

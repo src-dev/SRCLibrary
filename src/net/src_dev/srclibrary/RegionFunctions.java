@@ -1,4 +1,4 @@
-package net.src_dev.srclibrary.functions;
+package net.src_dev.srclibrary;
 
 import java.util.ArrayList;
 import java.util.List;
